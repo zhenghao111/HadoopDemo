@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<configuration>
+    <property>
+        <name>color</name>
+        <value>blue</value>
+    </property>
+
+    <property>
+        <name>size</name>
+        <value>20</value>
+    </property>
+</configuration>
