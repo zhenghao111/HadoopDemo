@@ -67,5 +67,4 @@ public class MaxTemperatureDriverTest {
         return new BufferedReader(new InputStreamReader(in));
     }
 
-
 }
