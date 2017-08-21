@@ -49,7 +49,7 @@ public class MaxTemperatureDriverTest {
         assertThat(outputFiles.length, is(1));
 
         BufferedReader actual = asBufferedReader(fs.open(outputFiles[0]));
-        BufferedReader expected = asBufferedReader(getClass().getResourceAsStream("/expected.txt"));
+        BufferedReader expected = asBufferedReader(fs.open(new Path("input/ncdc/expected.txt")));
 
         String expectedLine;
         while ((expectedLine = expected.readLine()) != null) {
