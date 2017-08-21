@@ -37,4 +37,9 @@ public class MaxTemperatureDriverTest {
         assertThat(exitCode, is(0));
     }
 
+    private void checkOutput(Configuration conf, Path output) {
+
+    }
+
+
 }
