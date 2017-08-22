@@ -19,8 +19,12 @@ public class MaxTemperatureDriverMiniTest extends ClusterMapReduceTestCase {
     @Override
     protected void setUp() throws Exception {
         if (System.getProperty("test.build.data") == null) {
-            System.setProperty("test.build.data", "tmp");
+            System.setProperty("test.build.data", "data/tmp");
         }
+
+
+
+
 
 
         super.setUp();
