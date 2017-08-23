@@ -1,8 +1,19 @@
 package com.zhenghao.mapreduce.v2;
 
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.FileUtil;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.fs.PathFilter;
 import org.apache.hadoop.mapred.ClusterMapReduceTestCase;
+import org.junit.Assert;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
+import static org.junit.Assert.assertThat;
 
 public class MaxTemperatureDriverMiniTest extends ClusterMapReduceTestCase {
 
@@ -22,14 +33,35 @@ public class MaxTemperatureDriverMiniTest extends ClusterMapReduceTestCase {
             System.setProperty("test.build.data", "data/tmp");
         }
 
-
-
-
-
+        if (System.getProperty("hadoop.log.dir") == null) {
+            System.setProperty("hadoop.log.dir", "data/tmp");
+        }
 
         super.setUp();
     }
 
     public void testName() throws Exception {
+
+        Configuration conf = createJobConf();
+        Path localInput = new Path("input/ncdc/micro");
+        Path input = getInputDir();
+        Path output = getOutputDir();
+
+        getFileSystem().copyFromLocalFile(localInput, input);
+
+        MaxTemperatureDriver driver = new MaxTemperatureDriver();
+        driver.setConf(conf);
+
+        int exitCode = driver.run(new String[]{input.toString(), output.toString()});
+//        assertThat(exitCode, is(0));
+
+        Path[] outputFiles = FileUtil.stat2Paths(getFileSystem().listStatus(output, new OutputLogFilter()));
+        assertThat(outputFiles.length, is(1));
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(getFileSystem().open(output)));
+        assertThat(reader.readLine(), is("1949\t111"));
+        assertThat(reader.readLine(), is("1950\t22"));
+        assertThat(reader.readLine(), nullValue());
+        reader.close();
     }
 }
