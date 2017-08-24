@@ -14,6 +14,7 @@ import org.apache.hadoop.util.ToolRunner;
 
 public class MaxTemperatureDriver extends Configured implements Tool {
 
+    //TODO 在mac上开集群测试
     @Override
     public int run(String[] args) throws Exception {
 
