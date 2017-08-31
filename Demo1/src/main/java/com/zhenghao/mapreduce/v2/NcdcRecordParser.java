@@ -38,4 +38,5 @@ public class NcdcRecordParser {
     public int getAirTemperature() {
         return airTemperature;
     }
+
 }
