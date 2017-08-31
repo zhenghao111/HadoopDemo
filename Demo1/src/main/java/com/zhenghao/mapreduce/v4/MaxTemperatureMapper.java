@@ -1,6 +1,5 @@
 package com.zhenghao.mapreduce.v4;
 
-import com.zhenghao.mapreduce.v2.NcdcRecordParser;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
@@ -26,7 +25,8 @@ public class MaxTemperatureMapper extends Mapper<LongWritable, Text, Text, IntWr
             int airTemperature = parser.getAirTemperature();
             context.write(new Text(parser.getYear()), new IntWritable(airTemperature));
         } else if (parser.isMalformedTemperature()) {
-
+            System.err.println(value);
+            context.getCounter(Temperature.MALFORMED).increment(1);
         }
     }
 }
