@@ -48,6 +48,15 @@
       <version>${hadoop.version}</version>
       <!--<scope>test</scope>-->
     </dependency>
+
+    <!-- others -->
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.16.16</version>
+      <scope>provided</scope>
+    </dependency>
+
   </dependencies>
 
   <build>
